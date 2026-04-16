@@ -3,6 +3,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Juego de Patrones de Velas</title>
 
 
@@ -39,8 +40,8 @@
 
   .container {
     width: 100%;
-    max-width: 980px;
-    padding: 24px;
+    max-width: 1220px;
+    padding: 20px;
     border-radius: 22px;
     border: 1px solid var(--card-border);
     background: var(--card);
@@ -49,13 +50,13 @@
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    gap: 14px;
+    gap: 12px;
   }
 
   h1 {
     margin: 0;
     text-align: center;
-    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-size: clamp(1.3rem, 2.3vw, 1.8rem);
     color: #f8fafc;
   }
 
@@ -63,7 +64,8 @@
     margin: 0;
     text-align: center;
     color: var(--muted);
-    line-height: 1.5;
+    line-height: 1.4;
+    font-size: 0.9rem;
   }
 
   .top-info {
@@ -83,8 +85,8 @@
 
   .game-layout {
     display: grid;
-    grid-template-columns: minmax(0, 1.35fr) minmax(240px, 0.9fr);
-    gap: 18px;
+    grid-template-columns: minmax(0, 1.7fr) minmax(220px, 0.72fr);
+    gap: 16px;
     align-items: start;
   }
 
@@ -103,9 +105,9 @@
 
   #timer {
     width: 100%;
-    padding: 12px 16px;
+    padding: 10px 14px;
     text-align: center;
-    font-size: 1.1rem;
+    font-size: 0.95rem;
     font-weight: 700;
     color: var(--warning);
     background: rgba(251, 191, 36, 0.12);
@@ -115,11 +117,11 @@
 
   #pregunta {
     width: 100%;
-    padding: 14px 16px;
+    padding: 12px 14px;
     border-radius: 12px;
     background: rgba(30, 41, 59, 0.9);
     color: #f8fafc;
-    font-size: 1.05rem;
+    font-size: 0.92rem;
     font-weight: 600;
     text-align: left;
   }
@@ -127,11 +129,11 @@
   img {
     width: 100%;
     height: auto;
-    max-height: 560px;
+    max-height: 760px;
     object-fit: contain;
     border-radius: 16px;
-    margin: 8px 0;
-    padding: 10px;
+    margin: 6px 0;
+    padding: 8px;
     background: linear-gradient(180deg, #ffffff, #e2e8f0);
     border: 1px solid rgba(148, 163, 184, 0.35);
   }
@@ -145,16 +147,16 @@
 
   button {
     width: 100%;
-    padding: 9px 12px;
+    padding: 8px 11px;
     border: none;
     border-radius: 10px;
     cursor: pointer;
     text-align: left;
     background: linear-gradient(135deg, var(--primary), var(--primary-hover));
     color: white;
-    font-size: 0.92rem;
+    font-size: 0.85rem;
     font-weight: 700;
-    letter-spacing: 0.2px;
+    letter-spacing: 0.1px;
     box-shadow: 0 10px 20px rgba(37, 99, 235, 0.25);
     transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
   }
@@ -188,7 +190,7 @@
 
   #resultado {
     min-height: 28px;
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: 700;
     text-align: left;
   }
@@ -241,7 +243,7 @@
     <div class="left-panel">
       <div id="timer">Tiempo: 15s</div>
 
-      <img id="imagen" src="" alt="patrón" style="max-height: 560px;">
+      <img id="imagen" src="" alt="patrón" style="max-height: 760px;">
     </div>
 
     <div class="right-panel">
