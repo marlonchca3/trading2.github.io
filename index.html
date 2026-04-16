@@ -408,6 +408,53 @@ let preguntasHechas = 0;
 let tiempoRestante = 0;
 let timerInterval = null;
 let patronActual = null;
+let audioCtx = null;
+
+function obtenerAudioCtx() {
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+  if (audioCtx.state === "suspended") {
+    audioCtx.resume();
+  }
+  return audioCtx;
+}
+
+function reproducirSonidoCorrecto() {
+  const ctx = obtenerAudioCtx();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+
+  osc.type = "sine";
+  osc.frequency.setValueAtTime(880, ctx.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(1320, ctx.currentTime + 0.15);
+  gain.gain.setValueAtTime(0.0001, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.16, ctx.currentTime + 0.02);
+  gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.22);
+
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.start();
+  osc.stop(ctx.currentTime + 0.22);
+}
+
+function reproducirSonidoIncorrecto() {
+  const ctx = obtenerAudioCtx();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+
+  osc.type = "triangle";
+  osc.frequency.setValueAtTime(320, ctx.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(150, ctx.currentTime + 0.22);
+  gain.gain.setValueAtTime(0.0001, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.14, ctx.currentTime + 0.02);
+  gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.26);
+
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.start();
+  osc.stop(ctx.currentTime + 0.26);
+}
 
 function obtenerPatronAleatorio() {
   return patrones[Math.floor(Math.random() * patrones.length)];
@@ -424,6 +471,7 @@ function iniciarTemporizador() {
     if (tiempoRestante <= 0) {
       clearInterval(timerInterval);
       document.getElementById("resultado").textContent = "⏰ Tiempo agotado. Era: " + patronActual.correcto;
+      reproducirSonidoIncorrecto();
       deshabilitarBotones();
       preguntasHechas++;
       
@@ -483,6 +531,7 @@ function verificar(respuesta, botonSeleccionado) {
   if (respuesta === patronActual.correcto) {
     botonSeleccionado.classList.add("correcta");
     resultado.textContent = "✅ Correcto!";
+    reproducirSonidoCorrecto();
     score++;
     document.getElementById("score").textContent = score;
 
@@ -496,6 +545,7 @@ function verificar(respuesta, botonSeleccionado) {
 
   } else {
     botonSeleccionado.classList.add("incorrecta");
+    reproducirSonidoIncorrecto();
     botones.forEach(btn => {
       if (btn.textContent === patronActual.correcto) {
         btn.classList.add("correcta");
